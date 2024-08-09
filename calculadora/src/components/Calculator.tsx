@@ -4,7 +4,7 @@ import Display from './Display';
 
 const Calculator: React.FC = () => {
   const [input, setInput] = useState<string>('');
-  const [total, setTotal] = useState<string>('')
+  const [total, setTotal] = useState<string>('0')
   const [lastOperation, setLastOperation] = useState<string>('');
 
   const handleButtonClick = (value: string) => {
@@ -35,8 +35,12 @@ const Calculator: React.FC = () => {
 
   const handleClearClick = () => {
     setInput('');
-    setTotal('');
+    setTotal('0');
     setLastOperation('');
+  };
+
+  const handleBackspaceClick = () => {
+    setInput((prev) => prev.slice(0, -1));
   };
 
   return (
@@ -44,7 +48,7 @@ const Calculator: React.FC = () => {
       <Display value={input} total={total} />
       <div className="buttons">
         <Button label="C" className='button-operator' onClick={handleClearClick} />
-        <Button label="D" className='button-operator' onClick={handleClearClick} />
+        <Button label="⌫" className='button-operator' onClick={handleBackspaceClick} />
         <Button label="√" className='button-operator' onClick={handleClearClick} />
         <Button label="÷" className='button-operator' onClick={() => handleButtonClick('/')} />
         <Button label="7" onClick={() => handleButtonClick('7')} />

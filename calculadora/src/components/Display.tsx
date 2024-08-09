@@ -8,7 +8,9 @@ interface DisplayProps {
 const Display: React.FC<DisplayProps> = ({ value, total }) => {
   return (
     <div className="display">
-      {value}
+      <span>
+        {value}
+      </span>
       {total && <div className="total-value">{total}</div>}
     </div>
   );
