@@ -13,6 +13,10 @@ const Calculator: React.FC = () => {
 
   const handleEqualClick = () => {
     try {
+      if (/\/0/.test(input)) {
+        setTotal('Não é possível realizar a divisão por zero');
+        return;
+      }
       if (total && lastOperation) {
         const result = eval(`${total}${lastOperation}`).toString();
         setTotal(result);
