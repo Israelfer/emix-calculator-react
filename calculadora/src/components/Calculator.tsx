@@ -36,7 +36,12 @@ const Calculator: React.FC = () => {
   const handleButtonClick = (value: string) => {
     const operators = ['+', '-', '*', '/'];
     const lastChar = input.slice(-1);
-
+  
+    if (operators.includes(value) && input === '') {
+      setInput(`0${value}`);
+      return;
+    }
+  
     if (operators.includes(value)) {
       if (operators.includes(lastChar)) {
         if (lastChar === value) {
@@ -47,7 +52,7 @@ const Calculator: React.FC = () => {
         }
       }
     }
-
+  
     setInput((prev) => prev + value);
   };
 
@@ -81,7 +86,7 @@ const Calculator: React.FC = () => {
     setTotal('0');
     setLastOperation('');
   };
-
+  
   const handleBackspaceClick = () => {
     setInput((prev) => prev.slice(0, -1));
   };

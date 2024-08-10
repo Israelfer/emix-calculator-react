@@ -6,12 +6,21 @@ interface DisplayProps {
 }
 
 const Display: React.FC<DisplayProps> = ({ value, total }) => {
+  const formatDisplay = (input: string): string => {
+    let formattedInput = input
+      .replace(/\//g, '÷')
+      .replace(/\*/g, 'x')
+      .replace(/\./g, ',');
+
+    formattedInput = formattedInput.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+    return formattedInput;
+  };
+
   return (
     <div className="display">
-      <span>
-        {value}
-      </span>
-      {total && <div className="total-value">{total}</div>}
+      <span>{formatDisplay(value)}</span>
+      {total && <div className="total-value">{formatDisplay(total)}</div>}
     </div>
   );
 };

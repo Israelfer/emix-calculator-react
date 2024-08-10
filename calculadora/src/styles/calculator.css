@@ -34,7 +34,8 @@ header {
   min-height: 100px;
   background-color: #070706;
   color: #E5E5E5;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
+  font-weight: lighter;
   padding: 32px 20px;
   display: flex;
   flex-direction: column;
