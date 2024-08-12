@@ -21,6 +21,7 @@ Teste técnico desenvolvido, aplicação do tipo "Calculadora" utilizando React 
 Utilizei esta oportunidade para aprender e explorar mais meus conhecimentos com o framework React. Criei componentes para que o código ficasse melhor dividido, ajudando na manutenção do código.
 
 O que eu poderia ter feito diferente?
+* Corrigir erros, adicionando melhorias com novas validações no display.
 * Utilizar uma nova lib CSS
 * Teste unitário
 * Ter seguido mais a risca o protótipo, com espaçamentos mais exatos, ícones e fonts (apenas print). Mas estou satisfeito com o resultado, ficou bem parecido!
