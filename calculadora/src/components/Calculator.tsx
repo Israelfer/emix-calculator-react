@@ -6,12 +6,13 @@ const Calculator: React.FC = () => {
   const [input, setInput] = useState<string>('');
   const [total, setTotal] = useState<string>('0');
   const [lastOperation, setLastOperation] = useState<string>('');
+  const [easterEgg, setEasterEgg] = useState<string>('');
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       const { key } = event;
 
-      if ((key >= '0' && key <= '9') || key === '.') {
+      if ((key >= '0' && key <= '9') || ['.', ','].includes(key) ) {
         handleButtonClick(key);
       } else if (['+', '-', '*', '/'].includes(key)) {
         handleButtonClick(key);
@@ -21,7 +22,7 @@ const Calculator: React.FC = () => {
         handleBackspaceClick();
       } else if (key === 'Escape') {
         handleClearClick();
-      } else if (key === 'r') {  // Adiciona o mapeamento para a raiz quadrada
+      } else if (key === 'g') {
         handleSquareRootClick();
       }
     };
@@ -34,14 +35,18 @@ const Calculator: React.FC = () => {
   }, []);
 
   const handleButtonClick = (value: string) => {
-    const operators = ['+', '-', '*', '/'];
+    const operators = ['+', '-', '*', '/', '.', ','];
     const lastChar = input.slice(-1);
-  
+
     if (operators.includes(value) && input === '') {
-      setInput(`0${value}`);
+      if (total === '0') {
+        setInput(`0${value}`);
+      } else {
+        setInput(`${total}${value}`);
+      }
       return;
     }
-  
+
     if (operators.includes(value)) {
       if (operators.includes(lastChar)) {
         if (lastChar === value) {
@@ -52,7 +57,7 @@ const Calculator: React.FC = () => {
         }
       }
     }
-  
+
     setInput((prev) => prev + value);
   };
 
@@ -62,22 +67,31 @@ const Calculator: React.FC = () => {
         setTotal('Não é possível realizar a divisão por zero');
         return;
       }
+
+      let result: string;
+
       if (total && lastOperation) {
-        const result = eval(`${total}${lastOperation}`).toString();
+        result = eval(`${total}${lastOperation}`).toString();
         setTotal(result);
         setInput((prev) => `${prev}${lastOperation}`);
       } else {
-        const result = eval(input).toString();
+        result = eval(input).toString();
         setTotal(result);
 
-        const operation = input.replace(/^[0-9.]+/, '');
+        const operation = input.replace(/^[0-9,]+/, '');
         setLastOperation(operation);
         setInput((prev) => `${prev} =`);
       }
+
+      if (result === '1997') {
+        setEasterEgg('🎉 Israel e EMIX nasceram em 97! 🎉')
+      }
+
     } catch {
       setTotal('Error');
       setInput('Error');
       setLastOperation('');
+      setEasterEgg('')
     }
   };
 
@@ -85,8 +99,9 @@ const Calculator: React.FC = () => {
     setInput('');
     setTotal('0');
     setLastOperation('');
+    setEasterEgg('')
   };
-  
+
   const handleBackspaceClick = () => {
     setInput((prev) => prev.slice(0, -1));
   };
@@ -125,10 +140,9 @@ const Calculator: React.FC = () => {
     }
   };
 
-
   return (
     <div className="calculator">
-      <Display value={input} total={total} />
+      <Display value={input} total={total} easterEgg={easterEgg} />
       <div className="buttons">
         <Button label="C" className='button-operator' onClick={handleClearClick} />
         <Button label="⌫" className='button-operator' onClick={handleBackspaceClick} />
