@@ -38,15 +38,6 @@ const Calculator: React.FC = () => {
     const operators = ['+', '-', '*', '/', '.', ','];
     const lastChar = input.slice(-1);
 
-    if (operators.includes(value) && input === '') {
-      if (total === '0') {
-        setInput(`0${value}`);
-      } else {
-        setInput(`${total}${value}`);
-      }
-      return;
-    }
-
     if (operators.includes(value)) {
       if (operators.includes(lastChar)) {
         if (lastChar === value) {
